@@ -1,8 +1,11 @@
 import React from "react";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import { Typography, Badge, Container, Grid } from "@mui/material";
+import Button from "@mui/material/Button";
+import Basket from "../Basket";
+export default function Navigation({opned,dispatch}) {
 
-export default function Navigation() {
+    console.log(opned);
   return (
     <Container fixed sx={{ mt: 4 }}>
       <Grid container spacing={2}>
@@ -19,7 +22,13 @@ export default function Navigation() {
             color='primary'
             sx={{ mr: 1 }}
           >
-            Basket
+
+              <Button onClick={() => dispatch({ type: "TOGGLE_BASKET" })}>
+                  Basket
+              </Button>\
+
+
+
           </Typography>
           <Badge badgeContent={0} color='primary'>
             <ShoppingCartTwoToneIcon color='action' />

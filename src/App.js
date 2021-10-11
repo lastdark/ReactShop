@@ -9,18 +9,23 @@ function reducer(state, action) {
     console.log(action);
     switch (action.type) {
         case "TOGGLE_BASKET":
-            return {state};
+            return {...state ,opned: !state.opned};
 
         default:
             return state;
     }
 }
 function App() {
+
+    const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
+
+    console.log(state.opned);
+
   return (
     <div className='App'>
-      <Navigation />
+      <Navigation   dispatch={dispatch} />
       <Books />
-      <Basket />
+      <Basket dispatch={dispatch} opened={state.opned} />
     </div>
   );
 }
