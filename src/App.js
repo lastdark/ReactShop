@@ -18,6 +18,7 @@ const INITIAL_STATE = {
     filters: {
         word: "",
         category: "All",
+        title:'',
         filterdBooks:booksMock
     },
     books: {
@@ -42,6 +43,16 @@ function reducer(state, action) {
 
         };
 
+        case "FILTER_TITLE":
+            return {...state,
+                filters:{...state.filters,
+                    title:action.payload,
+                    filterdBooks: (action.payload.length)? booksMock.filter((book) => book.category ===action.payload):booksMock},
+
+
+            };
+
+
 
         default:
             return state;
@@ -53,7 +64,7 @@ function App() {
 
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-
+    console.log(state);
   return (
     <div className='App'>
         <AppContext.Provider value={[state, dispatch]}>

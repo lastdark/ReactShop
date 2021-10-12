@@ -11,7 +11,7 @@ export default function Filters({ filters,category,dispatch }) {
   return (
     <>
       <Stack direction='row' spacing={2} sx={{ my: 5 }}>
-        <SearchBar />
+        <SearchBar  category={category} dispatch={dispatch} />
       </Stack>
       <Stack direction='row' spacing={2} sx={{ my: 5 }}>
         {filters?.map((filter) => (
