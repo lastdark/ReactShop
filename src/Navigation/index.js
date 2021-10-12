@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import { Typography, Badge, Container, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import Basket from "../Basket";
-export default function Navigation({opned,dispatch}) {
+import {AppContext} from "../App";
 
-    console.log(opned);
+export default function Navigation() {
+    const [state, dispatch] = useContext(AppContext);
   return (
     <Container fixed sx={{ mt: 4 }}>
       <Grid container spacing={2}>

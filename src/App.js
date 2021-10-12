@@ -1,9 +1,13 @@
 
 import Basket from "./Basket";
 import Books from "./Books";
-import {useReducer} from "react";
+import {useReducer,createContext} from "react";
 import Navigation from "./Navigation";
 import booksMock from "./mocks/books";
+import books from "./mocks/books";
+
+
+
 const INITIAL_STATE = {
     basket: {
         items: [],
@@ -14,19 +18,30 @@ const INITIAL_STATE = {
     filters: {
         word: "",
         category: "All",
+        filterdBooks:booksMock
     },
     books: {
-        booksMock,
+
         categories: ["All", "Design", "Mobile", "Ux", "DevOps", "Essentials"],
     },
 };
 
-
+export const AppContext = createContext();
 function reducer(state, action) {
 
     switch (action.type) {
         case "TOGGLE_BASKET":
             return {...state , basket: {...state.basket, opened: !state.basket.opened}};
+
+        case "FILTER_BOOK":
+        return {...state,
+            filters:{...state.filters,
+                category:action.payload,
+                filterdBooks: (action.payload==='All')?booksMock: booksMock.filter((book) => book.category ===action.payload)},
+
+
+        };
+
 
         default:
             return state;
@@ -38,13 +53,15 @@ function App() {
 
     const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
-    console.log(state.basket);
 
   return (
     <div className='App'>
-      <Navigation   dispatch={dispatch} />
-      <Books />
-      <Basket dispatch={dispatch} opened={state.basket.opened} />
+        <AppContext.Provider value={[state, dispatch]}>
+        <Navigation />
+         <Books />
+       <Basket dispatch={dispatch} opened={state.basket.opened} />
+
+        </AppContext.Provider>
     </div>
   );
 }
